@@ -72,3 +72,8 @@ body {
 .footer > .container .text-muted {
   margin: 20px 0;
 }
+
+
+textarea {
+  white-space: nowrap;
+}

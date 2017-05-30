@@ -5,18 +5,18 @@
       <div class="alert alert-info" role="alert">
         <div class="row">
           <div class="col-md-6">
-            <h3>Getting Started:</h3>
+            <h3>Getting Started</h3>
             <ol>
               <li>Define rules (<a href="https://github.com/m-gagne/textmeta#rules">see documentation</a>)</li>
-              <li>Upload PDF</li>
+              <li>Upload PDF (or start with this <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/sample/sample_doc.pdf">sample_doc.pdf</a>)</li>
             </ol>
           </div>
           <div class="col-md-6">
-            <h3>Jumpstart:</h3>
-            <ol>
-              <li>Start with the preloaded <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/functions/pdfmetafunc/rules.json">sample rules.json</a></li>
-              <li>Upload this PDF: <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/sample/sample_doc.pdf">sample_doc.pdf</a></li>
-            </ol>
+            <h3>Related Projects</h3>
+            <ul class="project-list">
+              <li><strong><a href="https://github.com/m-gagne/textmeta">TextMeta</a></strong> is the node module used in this demo to extract text & metadata from PDFs.</li>
+              <li><strong><a href="https://github.com/m-gagne/PDF2AzSearch">PDF to Azure Search</a></strong> an Azure Function that binds to storage and is triggered when a PDF is uploaded. The function then extracts text from the PDF file using <a href="https://github.com/m-gagne/textmeta">TextMeta</a> and using the supplied rules extracts metadata from the text & stores the result (text + metadata) in a DocumentDB collection which can then be used as a datasource for Azure Search.</li>
+            </ul>
           </div>
         </div>
        </div>

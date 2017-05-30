@@ -10,7 +10,7 @@
 .fileinput-button {
   position: relative;
   overflow: hidden;
-  display: inline-block;
+  display: inline-\block;
 }
 .fileinput-button input {
   position: absolute;
@@ -27,9 +27,16 @@
   margin: 20px 0 0 0;
 }
 
-#results {
-}
-
 #rules {
   height: 620px;
+}
+
+
+.project-list {
+  list-style: none;
+  padding: 0;
+}
+
+.project-list li {
+  margin: 10px 0 0 0;
 }

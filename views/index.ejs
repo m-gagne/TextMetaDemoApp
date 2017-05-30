@@ -14,7 +14,7 @@
           <div class="col-md-6">
             <h3>Jumpstart:</h3>
             <ol>
-              <li>Copy these rules: <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/functions/pdfmetafunc/rules.json">rules.json</a></li>
+              <li>Start with the preloaded <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/functions/pdfmetafunc/rules.json">sample rules.json</a></li>
               <li>Upload this PDF: <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/sample/sample_doc.pdf">sample_doc.pdf</a></li>
             </ol>
           </div>
@@ -90,6 +90,11 @@
       $(document).ready(() => {
           'use strict';
           $("#results").hide();
+
+          $.get("https://raw.githubusercontent.com/m-gagne/PDF2AzSearch/master/functions/pdfmetafunc/rules.json", function(data) {
+            $("#rules").val(data);
+          });
+
           $('#fileupload').fileupload({
               url: "/upload",
               done: function (e, data) {

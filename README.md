@@ -16,3 +16,7 @@ To run locally run the following
     npm install
     npm start
    
+
+## Configuration
+
+To track usage with Application Insights, set a value for `AppInsightsInstrumentationKey` in the Web Applications `Application Settings > App Settings`.

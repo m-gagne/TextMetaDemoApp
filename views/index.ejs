@@ -1,0 +1,116 @@
+    <% include ../views/partials/header %>
+
+    <div class="row">
+      <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Getting Started:</h3>
+            <ol>
+              <li>Define rules (<a href="https://github.com/m-gagne/textmeta#rules">see documentation</a>)</li>
+              <li>Upload PDF</li>
+            </ol>
+          </div>
+          <div class="col-md-6">
+            <h3>Jumpstart:</h3>
+            <ol>
+              <li>Copy these rules: <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/functions/pdfmetafunc/rules.json">rules.json</a></li>
+              <li>Upload this PDF: <a href="https://github.com/m-gagne/PDF2AzSearch/blob/master/sample/sample_doc.pdf">sample_doc.pdf</a></li>
+            </ol>
+          </div>
+        </div>
+       </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 ">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">1. Define Rules</h3>
+          </div>
+          <div class="panel-body">
+            <textarea id="rules" name="rules" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">2. Upload PDF</h3>
+              </div>
+              <div class="panel-body">
+                <span class="btn btn-success fileinput-button">
+                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                    <span>Select PDF...</span>
+                    <input id="fileupload" type="file" name="document" single>
+                </span>
+
+                <div id="progress" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="results" class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">3. Results</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#text" aria-controls="text" role="tab" data-toggle="tab">Text</a></li>
+                  <li role="presentation"><a href="#metadata" aria-controls="metadata" role="tab" data-toggle="tab">Metadata</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="text">
+                    <textarea id="extractedText" class="form-control" rows="20"></textarea>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="metadata">
+                    <textarea id="extractedMetaData" class="form-control" rows="20"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include ../views/partials/footer %>
+
+    <script src="/javascripts/jquery.ui.widget.js"></script>
+    <script src="/javascripts/jquery.iframe-transport.js"></script>
+    <script src="/javascripts/jquery.fileupload.js"></script>
+
+    <script>
+      $(document).ready(() => {
+          'use strict';
+          $("#results").hide();
+          $('#fileupload').fileupload({
+              url: "/upload",
+              done: function (e, data) {
+                $("#results").show();
+                $("#extractedText").text(data.result.text);
+                $("#extractedMetaData").text(JSON.stringify(data.result.meta, null, 4));
+              },
+              progressall: function (e, data) {
+                  $("#results").hide();
+                  var progress = parseInt(data.loaded / data.total * 100, 10);
+                  $('#progress .progress-bar').css(
+                      'width',
+                      progress + '%'
+                  );
+              }
+          });
+
+          $('#fileupload').bind('fileuploadsubmit', (e, data) => {
+            data.formData = {rules: $("#rules").val()};
+          });
+      });
+    </script>
+  </body>
+</html>

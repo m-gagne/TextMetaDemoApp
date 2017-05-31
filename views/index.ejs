@@ -32,10 +32,22 @@
       <div class="col-md-6 ">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">1. Define Rules</h3>
+            <h3 class="panel-title">1. Configure</h3>
           </div>
           <div class="panel-body">
-            <textarea id="rules" name="rules" class="form-control"></textarea>
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#rules-tab" aria-controls="rules-tab" role="tab" data-toggle="tab">Rules</a></li>
+              <li role="presentation"><a href="#options-tab" aria-controls="options-tab" role="tab" data-toggle="tab">Options</a></li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="rules-tab">
+                <textarea id="rules" name="rules" class="form-control"></textarea>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="options-tab">
+                <textarea id="options" name="options" class="form-control"></textarea>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -104,6 +116,14 @@
             $("#rules").val(data);
           });
 
+          $("#options").val(JSON.stringify({
+            numericPrecision: 0,
+            nonWhitespaceRegexp: "/\\S/",
+            replaceMultipleSpaces: true,
+            orderByYPos: false,
+            distanceToAddSpace: 1
+          }, null, 4));
+
           $('#fileupload').fileupload({
               url: "/upload",
               done: function (e, data) {
@@ -122,7 +142,10 @@
           });
 
           $('#fileupload').bind('fileuploadsubmit', (e, data) => {
-            data.formData = {rules: $("#rules").val()};
+            data.formData = {
+              rules: $("#rules").val(),
+              options: $("#options").val()
+            };
           });
       });
     </script>
